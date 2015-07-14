@@ -1,0 +1,6 @@
+#过滤不需要提交的文件
+*.class
+*.project
+ 
+#过滤文件夹
+.settings/

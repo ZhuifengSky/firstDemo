@@ -14,6 +14,7 @@ public class Student {
 	private int id;
 	private String studentName;
 	private int age;
+	private String imageUrl;
 	@Column(name="STUDENTNAME")
 	public String getStudentName() {
 		return studentName;
@@ -36,6 +37,13 @@ public class Student {
 	}
 	public void setId(int id) {
 		this.id = id;
+	}
+	@Column(name="IMAGE_URL")
+	public String getImageUrl() {
+		return imageUrl;
+	}
+	public void setImageUrl(String imageUrl) {
+		this.imageUrl = imageUrl;
 	}
 	
 	

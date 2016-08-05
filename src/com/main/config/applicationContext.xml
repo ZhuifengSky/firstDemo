@@ -22,6 +22,7 @@
 			<list>
 				<value>classpath:jdbc.properties</value>
 				<value>classpath:log4j.properties</value>
+				<value>classpath:config.properties</value>
 			</list>
 		</property>
 	</bean>

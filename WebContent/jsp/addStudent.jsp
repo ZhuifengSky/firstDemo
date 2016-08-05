@@ -23,8 +23,27 @@
 	<link rel="stylesheet" type="text/css" href="styles.css">
 	-->
 <script type="text/javascript" src="js/jquery-2.1.4.min.js"></script>
+<script type="text/javascript" src="js/jquery-1.8.3.min.js"></script>
 <script type="text/javascript" src="js/ajaxfileupload.js"></script>
+<script charset="utf-8" src="js/kindeditor-4.1.7/kindeditor-min.js"></script>
+<script charset="utf-8" src="js/kindeditor-4.1.7/lang/zh_CN.js"></script>
+<script charset="utf-8" src="js/jquery-ui-1.11.4/jquery.blockUI.js"></script>
+
 <script type="text/javascript">
+        var editor;
+        KindEditor.ready(function(K) {
+        	editor = K.create('#editor_id', {
+			resizeType : 1,
+			allowPreviewEmoticons : false,
+			allowImageUpload : true,
+			allowImageRemote: false,
+			items : [
+				'fontname', 'fontsize', '|', 'forecolor', 'hilitecolor', 'bold', 'italic', 'underline',
+				'removeformat', '|', 'justifyleft', 'justifycenter', 'justifyright', 'insertorderedlist',
+				'insertunorderedlist', '|', 'emoticons', 'image', 'link'],
+			uploadJson:'user/uploadimg.do'
+        	});
+	});
 	function regester(ope) {
 		if (ope == 'add') {
 			$("#form").attr("action", "user/addUser.do");
@@ -36,7 +55,7 @@
 	}
 	
 	 function onFileUploadimg(bt, columnname) {
-		var url = "user/uploadimg.do";
+		var url = "user/uploadByHes.do";
 		$.ajaxFileUpload({
 			url : url,
 			type: 'post',
@@ -55,9 +74,8 @@
 				}
 				else{
 					alert("上传成功");
+					uploadCallback(result.message, columnname);
 				}
-				uploadCallback(result, columnname);
-
 			},
 			error : function(result, status, e) {
 				alert(e);
@@ -66,30 +84,33 @@
 		return false;
 
 	}
-	function uploadCallback(data, id) {
-		document.getElementById(id).value = data.path;
-		var url = data.path;
-		//$("#androidImageUrl_show").hide();
-		$('#' + id + '_file')
-				.after(
-						$('<a id="'
-								+ id
-								+ '_show" href="javascript:;" onclick="javascript:showImage(\''
-								+ data.path + '\')">预览图片</a>'));
-	}
 
+	function uploadCallback(url, id) {
+		url = url.replace(/\//g,'');
+		$("#"+id).val(url);
+		$("#imageUrl_show").hide();
+		//url='http://picm.photophoto.cn/005/008/007/0080071498.jpg';
+		$('#' + id + '_file').after($('<a id="'+ id+'_show" href="javascript:;" onclick="javascript:showImage(\''
+								+ url + '\')">预览图片</a>'));
+	}
+	
+	
 	function showImage(url) {
+		alert(url);
 		$.blockUI({
 			css : {
-				top : '20%',
-				left : '30%',
+				top : '35%',
+				left : '35%',
 				cursor : null
 			},
 			message : ' <img  src="'+url+'"/>',
-			onOverlayClick : $.unblockUI
 		});
-
+		$('.blockOverlay').attr('title', 'Click to unblock').click($.unblockUI);
 	}
+	function hideBlock() {
+		jQuery.unblockUI();
+	}
+	
 </script>
 </head>
 
@@ -108,7 +129,7 @@
 					value="${s.studentName}"><c:if test="${s.id ne null}">
 						<input type="hidden" value="${s.id}" name="id">
 					</c:if>
-					<input type="hidden" value="${s.imageUrl}" name="imageUrl">
+					<input type="hidden" value="${s.imageUrl}" name="imageUrl" id="imageUrl">
 					</td>
 			</tr>
 			<tr>
@@ -127,12 +148,20 @@
 				</td>
 			</tr>
 			<tr>
+			   <td>描述:</td>
+			   <td>
+			      <textarea id="editor_id" name="content" style="width:700px;height:300px;">
+							&lt;strong&gt;HTML内容&lt;/strong&gt;
+				  </textarea>
+			   </td>
+			</tr>
+			<tr>
 				<c:if test="${s.id ne null}">
 					<td><input type="button" value="修改" onclick="regester('edit')"></td>
 				</c:if>
 				<c:if test="${s.id eq null}">
 					<td><input type="button" value="新增" onclick="regester('add')"></td>
-				</c:if>				
+				</c:if>	
 		   </tr>
 		</table>
 	</form>

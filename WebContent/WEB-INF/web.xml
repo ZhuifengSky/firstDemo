@@ -7,7 +7,7 @@
     <param-name>contextConfigLocation</param-name>
     <param-value>classpath:com/main/config/applicationContext*.xml</param-value>
   </context-param>
-  <!-- <filter>
+  <filter>
     <filter-name>encodingFilter</filter-name>
     <filter-class>
             org.springframework.web.filter.CharacterEncodingFilter
@@ -24,7 +24,7 @@
   <filter-mapping>
     <filter-name>encodingFilter</filter-name>
     <url-pattern>/*</url-pattern>
-  </filter-mapping> -->
+  </filter-mapping>
   <filter>
     <filter-name>OpenSessionInView</filter-name>
     <filter-class>org.springframework.orm.hibernate4.support.OpenSessionInViewFilter</filter-class>

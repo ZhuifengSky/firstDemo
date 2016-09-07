@@ -41,7 +41,7 @@
 				'fontname', 'fontsize', '|', 'forecolor', 'hilitecolor', 'bold', 'italic', 'underline',
 				'removeformat', '|', 'justifyleft', 'justifycenter', 'justifyright', 'insertorderedlist',
 				'insertunorderedlist', '|', 'emoticons', 'image', 'link'],
-			uploadJson:'user/uploadimg.do'
+			uploadJson:'user/upload4Editor.do'
         	});
 	});
 	function regester(ope) {
@@ -96,7 +96,6 @@
 	
 	
 	function showImage(url) {
-		alert(url);
 		$.blockUI({
 			css : {
 				top : '35%',

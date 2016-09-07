@@ -44,4 +44,10 @@ public interface IStudentService {
 	 * @param student
 	 */
 	public void updateStudent(Student student);
+	
+	/**
+	 * Ñ§Éú²éÑ¯
+	 * @param student
+	 */
+	public Student findStudent(String ticket, String userId);
 }

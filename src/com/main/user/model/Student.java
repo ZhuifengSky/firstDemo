@@ -15,6 +15,7 @@ public class Student {
 	private String studentName;
 	private int age;
 	private String imageUrl;
+	private String desc;
 	@Column(name="STUDENTNAME")
 	public String getStudentName() {
 		return studentName;
@@ -44,6 +45,13 @@ public class Student {
 	}
 	public void setImageUrl(String imageUrl) {
 		this.imageUrl = imageUrl;
+	}
+	@Column(name="P_DESC",length=1000)
+	public String getDesc() {
+		return desc;
+	}
+	public void setDesc(String desc) {
+		this.desc = desc;
 	}
 	
 	

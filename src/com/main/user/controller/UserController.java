@@ -9,6 +9,8 @@ import java.util.Date;
 
 import javax.annotation.Resource;
 import javax.imageio.ImageIO;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -25,6 +27,7 @@ import com.google.gson.Gson;
 import com.main.common.bean.Page;
 import com.main.common.bean.PageBean;
 import com.main.common.bean.Result;
+import com.main.common.util.CookieUtil;
 import com.main.common.util.DateUtil;
 import com.main.common.util.RandomStrUtil;
 import com.main.user.bean.StudentBean;
@@ -231,5 +234,65 @@ public class UserController {
 		}
 		return null;
 
+	}
+	@RequestMapping(value = "/upload4Editor.do", method = RequestMethod.POST)
+	@ResponseBody
+	public HttpEntity<Result> upload4Editor(
+			MultipartFile imgFile) {
+		System.out.println("方法开始执行了！");
+		System.out.println(imgFile.isEmpty());
+		HttpHeaders headers = new HttpHeaders();
+		headers.setContentType(MediaType.TEXT_HTML);
+		try {
+			if (!imgFile.isEmpty()) {
+				String suffix = null;
+				int index = imgFile.getOriginalFilename().lastIndexOf(".");
+				if (index != -1
+						&& index != imgFile.getOriginalFilename().length() - 1) {
+					suffix = imgFile.getOriginalFilename().substring(index + 1);
+				}
+				if (suffix == null || "png|jpg|bmp".indexOf(suffix) == -1) {
+					Result result = new Result();
+					result.setMessage("请上传图片文件");
+					result.setResultCode("1001"); // 1001为 文件格式不正确
+					HttpEntity<Result> httpEntity = new HttpEntity<Result>(
+							result, headers);
+					return httpEntity;
+				}
+				Result result = new Result();
+				/*InputStream is = imgFile.getInputStream();
+				BufferedImage src = ImageIO.read(is);
+				System.out.println("宽："+src.getWidth()+"高："+src.getHeight());
+				if (src.getWidth() != 222 || src.getHeight() != 192) {
+					result.setMessage("图片大小不符合规范");
+					result.setResultCode("1002"); // 1002为图片大小不符合规范
+					HttpEntity<Result> httpEntity = new HttpEntity<Result>(
+							result, headers);
+					return httpEntity;
+				} else {*/
+					String remoteFileName = fileUpServiceImpl.uploadFile(imgFile.getOriginalFilename(), suffix, imgFile.getInputStream());
+					result.setMessage(remoteFileName);
+					result.setResultCode("1000"); // 1000上传成功
+					HttpEntity<Result> httpEntity = new HttpEntity<Result>(
+							result, headers);
+					return httpEntity;
+				}
+			//}
+		} catch (Exception e) {
+			Result result = new Result();
+			result.setMessage("上传失败"+e.getMessage());
+			result.setResultCode("1000"); // 1000上传成功
+			HttpEntity<Result> httpEntity = new HttpEntity<Result>(
+					result, headers);
+			return httpEntity;
+		}
+		return null;
+		
+	}
+	@RequestMapping("/login")
+	public String userLogin(HttpServletRequest  request,HttpServletResponse response,String userName,String password){
+		CookieUtil.setCookie(response, "www.niubi.com", "2345432345tre23r", "userName");
+		return "redirect:/user/listUser.do";
+		
 	}
 }

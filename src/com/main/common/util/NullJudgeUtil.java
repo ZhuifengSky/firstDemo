@@ -22,4 +22,9 @@ public class NullJudgeUtil {
 			return false;
 		}
 	}
+	public static void main(String[] args) {
+		String str="45719|999|395571598|1473063512";
+		String[] s = str.split("\\|");
+		System.out.println(s.length);
+	}
 }

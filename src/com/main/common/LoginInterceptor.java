@@ -47,8 +47,8 @@ public class LoginInterceptor implements HandlerInterceptor{
 				return true;
 			}
 		}
-		request.setCharacterEncoding("utf-8");
-		response.setCharacterEncoding("utf-8");
+		response.setCharacterEncoding("UTF-8");
+		response.setContentType("text/plain; charset=UTF-8");
 		preHandle(response, PrintUtil.printJson("-1", "Äã±»À¹½Ø ÁË"));
 		return false;
 	}

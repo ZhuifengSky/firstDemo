@@ -29,6 +29,13 @@
 	<!-- 对模型视图名称的解析，即在模型视图名称添加前后缀 -->
     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver" p:prefix="/" p:suffix=".jsp"/>
 	<mvc:annotation-driven></mvc:annotation-driven>
+	<mvc:interceptors>
+		<mvc:interceptor>
+			<!-- 拦截器配置 -->
+			<mvc:mapping path="/user/**" /><!--用户相关 -->
+			<bean class="com.main.common.LoginInterceptor" /> 
+  		</mvc:interceptor>
+	</mvc:interceptors>
 	<!-- 支持上传文件 -->  
     <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver"/> 
 </beans>  

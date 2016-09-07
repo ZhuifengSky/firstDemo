@@ -45,5 +45,10 @@ public class StudentServiceImpl implements IStudentService{
 		studentDao.updateStudent(student);
 		
 	}
+	@Override
+	public Student findStudent(String ticket, String userId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
 }

@@ -9,9 +9,11 @@ import java.util.Date;
 
 import javax.annotation.Resource;
 import javax.imageio.ImageIO;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.shiro.authc.credential.Md5CredentialsMatcher;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
@@ -27,8 +29,10 @@ import com.google.gson.Gson;
 import com.main.common.bean.Page;
 import com.main.common.bean.PageBean;
 import com.main.common.bean.Result;
+import com.main.common.util.CalendarUtil;
 import com.main.common.util.CookieUtil;
 import com.main.common.util.DateUtil;
+import com.main.common.util.MD5;
 import com.main.common.util.RandomStrUtil;
 import com.main.user.bean.StudentBean;
 import com.main.user.model.Student;
@@ -289,10 +293,15 @@ public class UserController {
 		return null;
 		
 	}
-	@RequestMapping("/login")
+	@RequestMapping("/login.do")
 	public String userLogin(HttpServletRequest  request,HttpServletResponse response,String userName,String password){
-		CookieUtil.setCookie(response, "www.niubi.com", "2345432345tre23r", "userName");
-		return "redirect:/user/listUser.do";
-		
+		Student student = studentServiceImpl.studentLogin(userName, password);
+		if (student!=null) {
+			String ticket=MD5.MD5Encode(password+userName+System.currentTimeMillis());
+			CookieUtil.setCookie(response, "localhost", ticket, student.getId()+"");
+			return "redirect:listUser.do";
+		}else{
+			return "jsp/login1User";
+		}
 	}
 }

@@ -22,7 +22,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	-->
 	<script type="text/javascript">
 		function regester(){
-			window.location.href = "index.jsp"
+			window.location.href = "jsp/index.jsp"
 		}
 	</script>
   </head>
@@ -32,7 +32,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   	<h2><s:property value="#request.userName"/>注册成功！</h2>
   	</s:if>
   	
-  	<form action="user/login.action" method="post">
+  	<form action="user/login.do" method="post">
   	<table>
   		<tr>
   			<td>用户名:</td>

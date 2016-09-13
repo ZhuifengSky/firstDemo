@@ -132,6 +132,12 @@
 					</td>
 			</tr>
 			<tr>
+				<td>登录密码:</td>
+				<td><input type="text" name="password"
+					value="${s.password}">
+					</td>
+			</tr>
+			<tr>
 				<td>年龄:</td>
 				<td>
 				<input type="text" name="age" value="${s.age}">

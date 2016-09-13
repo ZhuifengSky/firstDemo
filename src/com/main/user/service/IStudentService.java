@@ -50,4 +50,9 @@ public interface IStudentService {
 	 * @param student
 	 */
 	public Student findStudent(String ticket, String userId);
+	/**
+	 * Ñ§ÉúµÇÂ¼
+	 * @param student
+	 */
+	public Student studentLogin(String userName, String password);
 }

@@ -21,6 +21,7 @@ import com.main.common.util.PageUtil;
 import com.main.user.bean.StudentBean;
 import com.main.user.dao.IStudentDao;
 import com.main.user.model.Student;
+import com.util.NullJudgeUtil;
 
 @Repository
 public class StudentDaoImpl implements IStudentDao{
@@ -96,5 +97,27 @@ public class StudentDaoImpl implements IStudentDao{
 		List d = query.list();		
 		session.close();
 		return Integer.parseInt(d.get(0).toString()) ;
+	}
+
+	@Override
+	public Student studentLogin(Student student) {
+		Session session = sessionFactory.getCurrentSession();
+		StringBuffer hql = new StringBuffer(" select id,studentName, password  from Student  where 1 = 1");
+		if (NullJudgeUtil.isNotNull(student.getStudentName()) && NullJudgeUtil.isNotNull(student.getPassword())) {
+			hql.append("  and studentName='"+student.getStudentName()+"'  and password='"+student.getPassword()+"'");
+		}
+		Query query = session.createQuery(hql.toString());   
+        //默认查询出来的list里存放的是一个Object数组   
+		List<Object[]> list =query.list();   
+        if (list!=null && list.size()==1) {
+        	Object[] res = list.get(0);
+        	if (res!=null && res.length>0) {
+        		Student student2 = new Student();
+            	student2.setId((int)res[0]);
+            	student2.setStudentName(res[1].toString());
+            	return student2;
+			}       	
+		}
+         return null;
 	}
 }

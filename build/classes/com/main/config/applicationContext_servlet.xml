@@ -32,7 +32,8 @@
 	<mvc:interceptors>
 		<mvc:interceptor>
 			<!-- 拦截器配置 -->
-			<mvc:mapping path="/user/**" /><!--用户相关 -->
+			<!-- <mvc:mapping path="/user/**" /> --><!--用户相关 -->
+			<mvc:mapping path="/user/listUser" /><!--用户相关 -->
 			<bean class="com.main.common.LoginInterceptor" /> 
   		</mvc:interceptor>
 	</mvc:interceptors>

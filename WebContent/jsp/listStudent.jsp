@@ -35,10 +35,10 @@
 	function editStudent(sid, op) {
 		if (op == 'del') {
 			if (window.confirm("确实要删除此条数据吗？")) {
-				window.location = "../user/deleteUser.do?sid=" + sid
+				window.location = "user/deleteUser.do?sid=" + sid
 			}
 		} else {
-			window.location = "../user/queryUser.do?sid=" + sid
+			window.location = "user/queryUser.do?sid=" + sid
 		}
 	}
 	$.ajax

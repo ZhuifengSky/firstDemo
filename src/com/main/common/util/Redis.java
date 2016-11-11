@@ -1,27 +1,26 @@
-package com.main.common.util;
+/*package com.main.common.util;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
 import redis.clients.jedis.JedisPoolConfig;
+import redis.clients.jedis.JedisShardInfo;
 import redis.clients.jedis.ShardedJedis;
 import redis.clients.jedis.ShardedJedisPool;
 
 
 public class Redis {
 
-//	public static String REDIS_ADDRESS = ConstantsUtil.tjProperty.get("REDIS_ADDRESS");
-//	public static String REDIS_PASSWORD = ConstantsUtil.tjProperty.get("REDIS_PASSWORD");
 	public static String REDIS_ADDRESS = Utility.REDIS_ADDRESS;
 	public static String REDIS_PASSWORD = Utility.REDIS_PASS;
 
 	private static ShardedJedisPool shardedJedisPool = null;// 切片连接池
 
-	/** 初始化切片池(分布式连接池异步调用) */
+	*//** 初始化切片池(分布式连接池异步调用) *//*
 	private static void initialShardedPool() {
 		JedisPoolConfig config = new JedisPoolConfig();
-		/*config.setMaxTotal(5000); // 最大连接数,-1不限制
+		config.setMaxTotal(5000); // 最大连接数,-1不限制
 		config.setMaxIdle(100); // 初始化空闲的连接数
 		config.setMaxWaitMillis(60 * 1000); // 最大等待时间(毫秒)
 		config.setTestOnBorrow(true); // 获得一个jedis实例的时候是否检查连接可用性(ping())
@@ -34,10 +33,10 @@ public class Redis {
 			jedisShardInfo.setPassword(REDIS_PASSWORD);
 			shards.add(jedisShardInfo);
 		}
-		shardedJedisPool = new ShardedJedisPool(config, shards);*/
+		shardedJedisPool = new ShardedJedisPool(config, shards);
 	}
 
-	/** 获取ShardedJedis连接 */
+	*//** 获取ShardedJedis连接 *//*
 	public static ShardedJedis getConn() {
 		if (shardedJedisPool == null) {
 			initialShardedPool();
@@ -45,14 +44,15 @@ public class Redis {
 		return shardedJedisPool.getResource();
 	}
 
-	/** 关闭ShardedJedis连接 */
+	*//** 关闭ShardedJedis连接 *//*
+	@SuppressWarnings("deprecation")
 	public static void close(ShardedJedis jedis) {
 		if (jedis != null) {
 			shardedJedisPool.returnResource(jedis);
 		}
 	}
 
-	/** 放值 */
+	*//** 放值 *//*
 	public static boolean set(String key,
 			String value) {
 		ShardedJedis jedis = null;
@@ -69,7 +69,7 @@ public class Redis {
 		return false;
 	}
 
-	/** 放值 */
+	*//** 放值 *//*
 	public static boolean set(String key,
 			String value,
 			int seconds) {
@@ -89,7 +89,7 @@ public class Redis {
 		return false;
 	}
 
-	/** 放map值 */
+	*//** 放map值 *//*
 	public static boolean hmset(String key,
 			Map<String, String> hash) {
 		ShardedJedis jedis = null;
@@ -106,7 +106,7 @@ public class Redis {
 		return false;
 	}
 
-	/** 放map值 */
+	*//** 放map值 *//*
 	public static boolean hmset(String key,
 			Map<String, String> hash,
 			int seconds) {
@@ -139,7 +139,7 @@ public class Redis {
 		return null;
 	}
 
-	/** 放map值 */
+	*//** 放map值 *//*
 	public static boolean hset(String key,
 			String field,
 			String value) {
@@ -171,13 +171,13 @@ public class Redis {
 		return null;
 	}
 
-	/**
+	*//**
 	 * 设置过期时间
 	 * 
 	 * @author fanxd
 	 * @param key
 	 * @param seconds
-	 */
+	 *//*
 	public static void expire(String key,
 			int seconds) {
 		ShardedJedis jedis = null;
@@ -205,7 +205,7 @@ public class Redis {
 		return result;
 	}
 
-	/** 取值,不存在 null */
+	*//** 取值,不存在 null *//*
 	public static String get(String key) {
 		ShardedJedis jedis = null;
 		try {
@@ -219,7 +219,7 @@ public class Redis {
 		return null;
 	}
 
-	/** 删除值 */
+	*//** 删除值 *//*
 	public static boolean del(String key) {
 		ShardedJedis jedis = null;
 		try {
@@ -269,3 +269,4 @@ public class Redis {
 	}
 
 }
+*/

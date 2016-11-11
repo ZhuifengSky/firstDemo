@@ -32,6 +32,7 @@ import com.main.common.bean.Result;
 import com.main.common.util.CalendarUtil;
 import com.main.common.util.CookieUtil;
 import com.main.common.util.DateUtil;
+import com.main.common.util.JedisUtils;
 import com.main.common.util.MD5;
 import com.main.common.util.RandomStrUtil;
 import com.main.user.bean.StudentBean;
@@ -299,6 +300,8 @@ public class UserController {
 		if (student!=null) {
 			String ticket=MD5.MD5Encode(password+userName+System.currentTimeMillis());
 			CookieUtil.setCookie(response, "localhost", ticket, student.getId()+"");
+			JedisUtils.set("userId", student.getId()+"", 3600);
+			JedisUtils.set("ticket", ticket, 3600);
 			return "redirect:listUser.do";
 		}else{
 			return "jsp/login1User";

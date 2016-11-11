@@ -51,7 +51,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   		</tr>
   		<tr>
   		    <td><a href="login.do"><img alt="QQ登录" src="image/bt_white_76X24.png"></a></td>
-  			<td><a href="https://open.weixin.qq.com/connect/qrconnect?appid=wxd34b0c756804381f&redirect_uri=http%3a%2f%2f127.0.0.1%3a8088%2fspringMvcTest%2fjsp%2flogin1User.jsp&response_type=code&scope=snsapi_login&state=3d6be0a4035d839573b04816624a415e#wechat_redirect">微信登录</a></td>
+  			<td><a href="https://open.weixin.qq.com/connect/qrconnect?appid=wx0f85bfa3ae1184d9&redirect_uri=http://www.socrazy.com/sso/thirdLogin/weChat/callback&response_type=code&scope=snsapi_base#wechat_redirect">微信登录</a></td>
   		</tr>
   	</table>
   	</form>

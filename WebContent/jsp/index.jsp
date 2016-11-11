@@ -141,7 +141,7 @@
 							oncorrect : "你输入的日期合法"
 						}).inputValidator({
 							min : "1900-01-01",
-							max : "2000-01-01",
+							max : "2099-01-01",
 							type : "date",
 							onerror : "日期必须在\"1900-01-01\"和\"2000-01-01\"之间"
 						});/* .focus(function() {
@@ -340,9 +340,7 @@
 
 	}
 	function login(){
-	alert(12)
-	window.location.href = 'login1User.jsp';
-	alert(dd)
+	window.location.href = 'jsp/login1User.jsp';
 	}
 </script>
 <style type="text/css" media="all">
@@ -356,7 +354,7 @@ body,div {
 
 <body>
 	<!-- <input type="button" onClick="test(this)" value="不校验身份证" /> -->
-	<form action="User_login1.action" method="post" name="form1" id="form1">
+	<form action="user/addUser.do" method="post" name="form1" id="form1">
 		<table border="0px" style="font-size:12px" width="630px">
 			<tr>
 				<td align="right">用户名:</td>

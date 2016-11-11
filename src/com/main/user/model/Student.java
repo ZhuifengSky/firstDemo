@@ -13,6 +13,7 @@ public class Student {
 
 	private int id;
 	private String studentName;
+	private String password;
 	private int age;
 	private String imageUrl;
 	private String desc;
@@ -52,6 +53,12 @@ public class Student {
 	}
 	public void setDesc(String desc) {
 		this.desc = desc;
+	}
+	public String getPassword() {
+		return password;
+	}
+	public void setPassword(String password) {
+		this.password = password;
 	}
 	
 	

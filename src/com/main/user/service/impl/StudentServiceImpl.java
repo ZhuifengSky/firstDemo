@@ -50,5 +50,13 @@ public class StudentServiceImpl implements IStudentService{
 		// TODO Auto-generated method stub
 		return null;
 	}
+	@Override
+	public Student studentLogin(String userName, String password) {
+		
+		Student student = new Student();
+		student.setStudentName(userName);
+		student.setPassword(password);
+		return studentDao.studentLogin(student );
+	}
 
 }

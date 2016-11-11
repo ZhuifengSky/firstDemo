@@ -45,4 +45,11 @@ public interface IStudentDao {
 	 * @param student
 	 */
 	public void updateStudent(Student student);
+	
+	/**
+	 * Ñ§Ô±µÇÂ¼
+	 * @param student
+	 * @return 
+	 */
+	public Student studentLogin(Student student);
 }

@@ -7,7 +7,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<iframe border="0" src="http://e.vhall.com/webinar/inituser/804157140?email=3456@vhall.com&name='追风sky雾'&hideVideoControlBar=1" width="800" height="600"></iframe>
+	<iframe border="0" src="http://e.vhall.com/webinar/inituser/804157140?email=3456@vhall.com&name='ss'&hideVideoControlBar=1" width="800" height="600"></iframe>
 	<script type="text/javascript">
 			(function(){
 			var p = {

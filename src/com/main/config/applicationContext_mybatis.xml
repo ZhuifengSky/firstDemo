@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	   xmlns:tx="http://www.springframework.org/schema/tx"
+	   xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.0.xsd"
+	   default-lazy-init="true">
+
+	<description>Spring Configuration</description>
+
+ 	<!-- MyBatis begin -->
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="dataSource" ref="goods_dataSource"/>
+        <property name="typeAliasesPackage" value="cn.huanju.edu100.hq"/>
+        <property name="typeAliasesSuperType" value="cn.huanju.edu100.hq.common.persistence.BaseEntity"/>
+        <property name="mapperLocations" value="classpath:/mappings/**/*.xml"/>
+		<property name="configLocation" value="classpath:/mybatis-config.xml"></property>
+		<property name="plugins">
+			<array>
+				<bean class="com.github.pagehelper.PageHelper">
+					<property name="properties">
+						<value>
+							dialect=mysql
+						</value>
+					</property>
+				</bean>
+			</array>
+		</property>
+    </bean>
+    
+    <!-- 扫描basePackage下所有以@MyBatisDao注解的接口 -->
+    <bean id="mapperScannerConfigurer" class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory" />
+        <property name="basePackage" value="org.mybatis.spring.sample.mappe"/>
+        <property name="annotationClass" value="cn.huanju.edu100.hq.common.persistence.annotation.MyBatisDao"/>
+    </bean>
+    <!-- DAO接口所在包名，Spring会自动查找其下的类 -->
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+		<property name="basePackage" value="com.zhubu.course.dao" />
+		<property name="sqlSessionFactoryBeanName" value="sqlSessionFactory" />
+	</bean>
+    <!-- 定义事务 -->
+ 	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="mybatis_dataSource" />
+	</bean>
+	
+	<!-- 配置 Annotation 驱动，扫描@Transactional注解的类定义事务  -->
+ 	<tx:annotation-driven transaction-manager="transactionManager" proxy-target-class="true"/>
+    <!-- MyBatis end -->
+        
+	<!-- 数据源配置, 使用 BoneCP 数据库连接池 -->
+	<bean id="mybatis_dataSource" class="com.alibaba.druid.pool.DruidDataSource" init-method="init" destroy-method="close"> 
+	    <!-- 数据源驱动类可不写，Druid默认会自动根据URL识别DriverClass -->
+	    <property name="driverClassName" value="${jdbc.driver2}" />
+	    
+		<!-- 基本属性 url、user、password -->
+		<property name="url" value="${jdbc.url2}" />
+		<property name="username" value="${jdbc.username2}" />
+		<property name="password" value="${jdbc.password2}" />
+		
+		<!-- 配置初始化大小、最小、最大 -->
+		<property name="initialSize" value="${jdbc.pool.init}" />
+		<property name="minIdle" value="${jdbc.pool.minIdle}" /> 
+		<property name="maxActive" value="${jdbc.pool.maxActive}" />
+		
+		<!-- 配置获取连接等待超时的时间 -->
+		<property name="maxWait" value="60000" />
+		
+		<!-- 配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒 -->
+		<property name="timeBetweenEvictionRunsMillis" value="60000" />
+		
+		<!-- 配置一个连接在池中最小生存的时间，单位是毫秒 -->
+		<property name="minEvictableIdleTimeMillis" value="300000" />
+		
+		<property name="validationQuery" value="${jdbc.testSql}" />
+		<property name="testWhileIdle" value="true" />
+		<property name="testOnBorrow" value="false" />
+		<property name="testOnReturn" value="false" />
+				
+		<!-- 配置监控统计拦截的filters -->
+	    <property name="filters" value="stat" /> 
+	</bean>
+	
+	<!-- spring和MyBatis完美整合，不需要mybatis的配置映射文件 -->
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<!-- <property name="configLocation" value="classpath:mybatis-config.xml"></property> -->
+		<!-- 自动扫描mapping.xml文件 -->
+		<property name="mapperLocations" value="classpath:com/mapping/*.xml" />
+		<property name="plugins">
+			<array>
+				<bean class="com.github.pagehelper.PageHelper">
+					<property name="properties">
+						<value>
+							dialect=mysql
+						</value>
+					</property>
+				</bean>
+			</array>
+		</property>
+	</bean>
+
+	<!-- <plugins> com.github.pagehelper为PageHelper类所在包名 <plugin interceptor="com.zhubu.framework.page.PageHelper"></plugin> <plugin interceptor="com.github.pagehelper.PageHelper"> 4.0.0以后版本可以不设置该参数 <property name="dialect" value="mysql"/> 该参数默认为false 设置为true时，会将RowBounds第一个参数offset当成pageNum页码使用 和startPage中的pageNum效果一样 <property name="offsetAsPageNum" value="true"/> 该参数默认为false 设置为true时，使用RowBounds分页会进行count查询 <property name="rowBoundsWithCount" value="true"/> 设置为true时，如果pageSize=0或者RowBounds.limit = 0就会查询出全部的结果 （相当于没有执行分页查询，但是返回结果仍然是Page类型） <property name="pageSizeZero" value="true"/> 3.3.0版本可用 - 分页参数合理化，默认false禁用 启用合理化时，如果pageNum<1会查询第一页，如果pageNum>pages会查询最后一页 禁用合理化时，如果pageNum<1或pageNum>pages会返回空数据 <property name="reasonable" 
+		value="false"/> 3.5.0版本可用 - 为了支持startPage(Object params)方法 增加了一个`params`参数来配置参数映射，用于从Map或ServletRequest中取值 可以配置pageNum,pageSize,count,pageSizeZero,reasonable,orderBy,不配置映射的用默认值 不理解该含义的前提下，不要随便复制该配置 <property name="params" value="pageNum=pageHelperStart;pageSize=pageHelperRows;"/> 支持通过Mapper接口参数来传递分页参数 <property name="supportMethodsArguments" value="false"/> always总是返回PageInfo类型,check检查返回类型是否为PageInfo,none返回Page <property name="returnPageInfo" value="none"/> </plugin> </plugins> -->
+
+	<!-- 初始化监听 -->
+	<!-- <bean class="com.zhubu.framework.activemq.RocketMQListener" /> -->
+
+
+	
+
+</beans>

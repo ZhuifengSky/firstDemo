@@ -43,12 +43,11 @@
 								form.submit;
 							}
 						});
-						$("#us")
-								.formValidator({
+						$("#us").formValidator({
 									onshow : "请输入用户名,只有输入\"maodong\"才是对的",
 									onfocus : "用户名至少5个字符,最多10个字符",
 									oncorrect : "该用户名可以注册"
-								})
+						})
 								/* .inputValidator({
 									min : 5,
 									max : 10,
@@ -112,7 +111,7 @@
 							operateor : "=",
 							onerror : "2次密码不一致,请确认"
 						});
-						$(":radio[name='userBean.sex']").formValidator({
+						$(":radio[name='sex']").formValidator({
 							tipid : "sexTip",
 							onshow : "请选择你的性别",
 							onfocus : "没有第三种性别了，你选一个吧",
@@ -358,15 +357,14 @@ body,div {
 		<table border="0px" style="font-size:12px" width="630px">
 			<tr>
 				<td align="right">用户名:</td>
-				<td><input type="text" id="us" name="userBean.userName" style="width:120px"
-					 />
+				<td><input type="text" id="us" name="studentName" style="width:120px"/>
 				</td>
 				<td><div id="usTip" style="width:250px"></div>
 				</td>
 			</tr>
 			<tr>
 				<td align="right">密码:</td>
-				<td><input type="password" id="password1" name="userBean.password"
+				<td><input type="password" id="password1" name="password"
 					style="width:120px" />
 				</td>
 				<td><div id="password1Tip" style="width:250px"></div>
@@ -374,23 +372,31 @@ body,div {
 			</tr>
 			<tr>
 				<td align="right">重复密码:</td>
-				<td><input type="password" id="password2" name="userBean.repassword"
+				<td><input type="password" id="password2" 
 					style="width:120px" />
 				</td>
 				<td><div id="password2Tip" style="width:250px"></div>
 				</td>
 			</tr>
 			<tr>
+				<td align="right">你的年龄:</td>
+				<td><input type="text" id="nl" name="age" style="width:120px"
+					value="26" class="fv_input_text_default" />
+				</td>
+				<td><div id="nlTip" style="width:250px"></div>
+				</td>
+			</tr>
+			<tr>
 				<td align="right">你的性别:</td>
-				<td><input type="radio" id="sex" value="1" name="userBean.sex" />
+				<td><input type="radio" id="sex" value="1" name="sex" />
 					男&nbsp;&nbsp;&nbsp;&nbsp; <input type="radio" id="sex1" value="2"
-					name="userBean.sex" /> 女</td>
+					name="sex" /> 女</td>
 				<td><div id="sexTip" style="width:250px"></div>
 				</td>
 			</tr>
 			<tr>
 				<td align="right">出生日期:</td>
-				<td><input type="text" id="csny" name="userBean.birthday"
+				<td><input type="text" id="csny" name="birthDate"
 					style="width:120px" readonly="readonly"/>
 					<img onclick="WdatePicker({el:'csny'})" src="js/fomvalidator4.0/datepicker/skin/datePicker.gif" width="16" height="22" >
 				</td>
@@ -398,16 +404,14 @@ body,div {
 				</td>
 			</tr>
 			<tr>
+				<td align="right" valign="top">你的描述:</td>
+				<td colspan="2" valign="top"><textarea id="ms" name="desc"
+						cols="50" rows="10">这里是十个中文字符哦</textarea></td>
+			</tr>
+			<tr>
 			<td><input type="submit" name="button" id="button" value="注册" /><input type="button" name="button" id="button" value="登陆"  onclick="login()"/>  </td>
 			</tr>
-			<%-- <tr>
-				<td align="right">你的年龄:</td>
-				<td><input type="text" id="nl" name="nl" style="width:120px"
-					value="26" class="fv_input_text_default" />
-				</td>
-				<td><div id="nlTip" style="width:250px"></div>
-				</td>
-			</tr>
+			<%-- 
 			<tr>
 				<td align="right">身份证号</td>
 				<td><input name="sfzh" type="text" id="sfzh"
@@ -521,11 +525,7 @@ body,div {
 				<td><div id="selectmoreTip" style="width:250px"></div>
 				</td>
 			</tr>
-			<tr>
-				<td align="right" valign="top">你的描述:</td>
-				<td colspan="2" valign="top"><textarea id="ms" name="ms"
-						cols="50" rows="10">这里是十个中文字符哦</textarea></td>
-			</tr>
+			
 			<tr>
 				<td colspan="3"><div id="msTip" style="width:250px"></div>
 				</td>

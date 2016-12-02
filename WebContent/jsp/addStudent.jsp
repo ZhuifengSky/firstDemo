@@ -155,7 +155,7 @@
 			<tr>
 			   <td>描述:</td>
 			   <td>
-			      <textarea id="editor_id" name="content" style="width:700px;height:300px;">
+			      <textarea id="editor_id" name="desc" style="width:700px;height:300px;">
 							&lt;strong&gt;HTML内容&lt;/strong&gt;
 				  </textarea>
 			   </td>

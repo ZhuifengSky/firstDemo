@@ -68,7 +68,7 @@ public class Student {
 	}
 	@Column(name="birthDate")
 	public String getBirthDate() {
-		return birthDate+" 00:00:00";
+		return birthDate;
 	}
 	public void setBirthDate(String birthDate) {
 		this.birthDate = birthDate;

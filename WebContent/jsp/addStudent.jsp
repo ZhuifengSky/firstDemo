@@ -28,6 +28,7 @@
 <script charset="utf-8" src="js/kindeditor-4.1.7/kindeditor-min.js"></script>
 <script charset="utf-8" src="js/kindeditor-4.1.7/lang/zh_CN.js"></script>
 <script charset="utf-8" src="js/jquery-ui-1.11.4/jquery.blockUI.js"></script>
+<script defer="defer" src="js/fomvalidator4.0/datepicker/WdatePicker.js"type="text/javascript"></script>
 
 <script type="text/javascript">
         var editor;
@@ -153,10 +154,19 @@
 				</td>
 			</tr>
 			<tr>
+				<td align="right">出生日期:</td>
+				<td><input type="text" id="csny" name="birthDate"
+					style="width:120px" readonly="readonly" value="${s.birthDate}"/>
+					<img onclick="WdatePicker({el:'csny'})" src="js/fomvalidator4.0/datepicker/skin/datePicker.gif" width="16" height="22" >
+				</td>
+				<td><div id="csnyTip" style="width:300px"></div>
+				</td>
+			</tr>
+			<tr>
 			   <td>描述:</td>
 			   <td>
-			      <textarea id="editor_id" name="content" style="width:700px;height:300px;">
-							&lt;strong&gt;HTML内容&lt;/strong&gt;
+			      <textarea id="editor_id" name="desc" style="width:700px;height:300px;">
+							${s.desc}
 				  </textarea>
 			   </td>
 			</tr>

@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.PrintWriter;
 import java.util.Date;
 
 import javax.annotation.Resource;
@@ -299,12 +300,25 @@ public class UserController {
 		Student student = studentServiceImpl.studentLogin(userName, password);
 		if (student!=null) {
 			String ticket=MD5.MD5Encode(password+userName+System.currentTimeMillis());
-			CookieUtil.setCookie(response, "localhost", ticket, student.getId()+"");
+			CookieUtil.setCookie(response, "123.206.78.60", ticket, student.getId()+"");
 			JedisUtils.set("userId", student.getId()+"", 3600);
 			JedisUtils.set("ticket", ticket, 3600);
 			return "redirect:listUser.do";
 		}else{
 			return "jsp/login1User";
+		}
+	}
+	
+	@RequestMapping("/test.do")
+	public void test(HttpServletRequest  request,HttpServletResponse response){
+		try {
+			PrintWriter out = response.getWriter();
+			out.print("<script language=\"javascript\">alert('µÇÂ¼Ê§°Ü£¡');</script>");
+			response.sendRedirect("http://localhost:8880/springMvcTest/");
+			//			
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
 }

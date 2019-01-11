@@ -29,10 +29,10 @@ import com.main.wx.service.IWechatSupportService;
  */
 @Controller
 @Scope("session")
-@RequestMapping("/weChat")
-public class WechatController {
+@RequestMapping("/weChatLogin")
+public class WechatLoginController {
 
-	private Logger log = Logger.getLogger(WechatController.class);
+	private Logger log = Logger.getLogger(WechatLoginController.class);
 	private WxMpInMemoryConfigStorage config;
 	private static final String baseScope = WxConfig.base_scope;
 	private static final String userInfoScope = WxConfig.userInfo_scope;
@@ -90,8 +90,8 @@ public class WechatController {
 	public void callback(HttpServletRequest request, HttpServletResponse response,String state,String code){
 		response.setContentType("text/html;charset=utf-8");
     	HttpSession session = request.getSession();
-    	/*Object checkState = session.getAttribute("state");
-    	if (null!=checkState && checkState.equals(state)) {*/    		
+    	Object checkState = session.getAttribute("state");
+    	if (null!=checkState && checkState.equals(state)) {    		
 			try {
 				WxMpOAuth2AccessToken accessToken = wechatService.oauth2getAccessToken(code);			
 	    		if (accessToken!=null) {
@@ -116,13 +116,13 @@ public class WechatController {
 					e.printStackTrace();
 				}
 			}
-		/*}else{
+		}else{
 			try {
 				response.sendRedirect(WxConfig.illegal_request);
 			} catch (IOException e) {
 				e.printStackTrace();
 				log.error("请求非法跳转出错!");
 			}
-		}	*/	
+		}		
 	}
 }

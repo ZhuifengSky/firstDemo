@@ -75,4 +75,22 @@
 			expression="execution(public * *..service..*.*(..))" />
 		<aop:advisor advice-ref="txAdvice" pointcut-ref="BussessServiceOperation" />
 	</aop:config>
+	<!-- 配置切面类 -->
+    <bean id="helloAspectBean" class="com.main.common.aspect.HelloAspect" />
+    <!-- &lt;!&ndash; 配置一个切面 &ndash;&gt; -->
+    <aop:config>
+        <aop:aspect id="helloAspect" ref="helloAspectBean">
+            <aop:pointcut id="helloServicePointcut" expression="execution(* com.main.user.service.*.*(..)) " />        	
+            <!-- &lt;!&ndash; 配置前置通知 &ndash;&gt; -->
+            <aop:before pointcut-ref="helloServicePointcut" method="beforeAdvice" />
+            <!-- &lt;!&ndash; 配置后置通知 &ndash;&gt; -->
+            <aop:after pointcut-ref="helloServicePointcut" method="afterAdvice" />
+            <!-- &lt;!&ndash; 配置后置返回通知 &ndash;&gt; -->
+            <aop:after-returning pointcut-ref="helloServicePointcut" method="afterReturnAdvice" returning="result" />
+            <!-- &lt;!&ndash; 配置环绕通知 &ndash;&gt; -->
+            <aop:around pointcut-ref="helloServicePointcut" method="aroundAdvice" />
+            <!-- &lt;!&ndash; 异常通知 &ndash;&gt; -->
+            <aop:after-throwing pointcut-ref="helloServicePointcut" method="throwingAdvice" throwing="e" />
+        </aop:aspect>
+    </aop:config>
 </beans>

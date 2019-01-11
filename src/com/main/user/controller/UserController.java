@@ -51,7 +51,7 @@ public class UserController {
 
 	@Resource
 	private IStudentService studentServiceImpl;
-	@Resource
+	/*@Resource
 	private IFileUpService fileUpServiceImpl;
 	
 	
@@ -130,7 +130,7 @@ public class UserController {
         fs.close();   
         stream.close();
 		return savePath;         
-   }         
+   } */        
 	
 	@RequestMapping("/addUser.do")
 	public String addUser(Student student){
@@ -187,7 +187,7 @@ public class UserController {
 	}
 	
 	
-	@RequestMapping(value = "/uploadByHes.do", method = RequestMethod.POST)
+	/*@RequestMapping(value = "/uploadByHes.do", method = RequestMethod.POST)
 	@ResponseBody
 	public HttpEntity<Result> uploadByHes(
 			MultipartFile file) {
@@ -266,7 +266,7 @@ public class UserController {
 					return httpEntity;
 				}
 				Result result = new Result();
-				/*InputStream is = imgFile.getInputStream();
+				InputStream is = imgFile.getInputStream();
 				BufferedImage src = ImageIO.read(is);
 				System.out.println("宽："+src.getWidth()+"高："+src.getHeight());
 				if (src.getWidth() != 222 || src.getHeight() != 192) {
@@ -275,7 +275,7 @@ public class UserController {
 					HttpEntity<Result> httpEntity = new HttpEntity<Result>(
 							result, headers);
 					return httpEntity;
-				} else {*/
+				} else {
 					String remoteFileName = fileUpServiceImpl.uploadFile(imgFile.getOriginalFilename(), suffix, imgFile.getInputStream());
 					result.setMessage(remoteFileName);
 					result.setResultCode("1000"); // 1000上传成功
@@ -294,7 +294,7 @@ public class UserController {
 		}
 		return null;
 		
-	}
+	}*/
 	@RequestMapping("/login.do")
 	public String userLogin(HttpServletRequest  request,HttpServletResponse response,String userName,String password){
 		Student student = studentServiceImpl.studentLogin(userName, password);
